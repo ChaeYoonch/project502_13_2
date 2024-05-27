@@ -27,7 +27,7 @@ public abstract class AbstractController implements Controller { // 템플릿 �
      * - 문자 : q, exit, quit -> 종료
      * - 숫자 : 메뉴 항목
      */
-    public void prompt() {
+    public void prompt() { // prompt 기본 동작 => System.out.print("메뉴 선택 : "); -> 재정의 가능
         System.out.println(Templates.getInstance().doubleline());
         System.out.print("메뉴 선택 : ");
         String menu = sc.nextLine();

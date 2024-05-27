@@ -11,6 +11,8 @@ public class JoinTpl implements Template {
         sb.append("다음 가입 항목을 입력하세요.\n");
         sb.append(Templates.getInstance().line());
 
+        System.out.println("joinTpl : " + sb);
+
         return sb.toString();
     }
 }

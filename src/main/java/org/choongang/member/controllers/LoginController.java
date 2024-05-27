@@ -1,8 +1,11 @@
 package org.choongang.member.controllers;
 
 import org.choongang.global.AbstractController;
+import org.choongang.global.Router;
+import org.choongang.global.Service;
 import org.choongang.global.constants.Menu;
 import org.choongang.main.MainRouter;
+import org.choongang.member.services.MemberServiceLocator;
 import org.choongang.template.Templates;
 
 /**
@@ -26,9 +29,17 @@ public class LoginController extends AbstractController {
                 .userPw(userPW)
                 .build();
 
-        System.out.println(form);
         // 로그인 처리 기능 ...
+        Router router = MainRouter.getInstance();
+        try {
 
-        MainRouter.getInstance().change(Menu.MAIN); // 로그인 처리 끝나면 메인 화면으로 이동
+            Service service = MemberServiceLocator.getInstance().find(Menu.LOGIN);
+            service.process(form);
+
+            router.change(Menu.MAIN); // 로그인 성공 시 -> 메인 화면으로 이동
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            router.change(Menu.LOGIN); // 로그인 실패 시 -> 로그인 페이지로 이동
+        }
     }
 }

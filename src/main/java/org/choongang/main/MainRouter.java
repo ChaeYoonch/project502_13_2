@@ -1,0 +1,44 @@
+package org.choongang.main;
+
+import org.choongang.global.Controller;
+import org.choongang.global.ControllerLocator;
+import org.choongang.global.Router;
+import org.choongang.global.constants.Menu;
+import org.choongang.main.controllers.MainController;
+import org.choongang.member.controllers.MemberControllerLocator;
+
+public class MainRouter implements Router {
+
+    private static Router instance;
+
+    private MainRouter() {} // 싱글톤 형태
+
+    public static Router getInstance() {
+        if (instance == null) { // instance 가 null 인 경우
+            instance = new MainRouter();
+        }
+
+        return instance;
+    }
+
+    @Override
+    public void change(Menu menu) {
+        ControllerLocator memlocator = MemberControllerLocator.getInstance();
+
+        Controller controller = null;
+        switch(menu) {
+            case JOIN: controller = memlocator.find(Menu.JOIN); break;
+            case LOGIN: controller = memlocator.find(Menu.LOGIN); break;
+            default: controller = new MainController(); break;
+        }
+
+        controller.run(); // common() - show() - prompt() 순서대로 실행되서 결과 도출 -> 다형성 이용
+    }
+
+    @Override
+    public void start() {
+        while(true) { // 무한 루프
+            change(Menu.MAIN); // 첫 화면은 메인 컨트롤러 출력 화면
+        }
+    }
+}

@@ -4,7 +4,7 @@ import org.choongang.template.Template;
 
 public class MainTpl implements Template { // 메인 메뉴 구성
     @Override
-    public String getTpl(String tplName) { // 문자열 결합 = buffer
+    public String getTpl() { // 문자열 결합 = buffer
         StringBuffer sb = new StringBuffer(2000);
 
         sb.append("메뉴를 선택하세요.\n")

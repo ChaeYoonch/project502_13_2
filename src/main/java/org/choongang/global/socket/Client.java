@@ -65,8 +65,8 @@ public class Client {
             });
 
             th.start();
-        } catch (JsonException) {
-            e.printStackTrace();
+        } catch /* (JsonException) {
+            e.printStackTrace();*/
         }
     }
 }
